@@ -1,14 +1,11 @@
-//your JS code here. If required.
-
 function createRandomPromise(name) {
     return new Promise((resolve) => {
-        const timeToResolve = Math.random() * 2 + 1; 
+        const timeToResolve = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
         setTimeout(() => {
             resolve({ name, timeToResolve });
         }, timeToResolve * 1000);
     });
 }
-
 
 const promises = [
     createRandomPromise("Promise 1"),
@@ -16,28 +13,25 @@ const promises = [
     createRandomPromise("Promise 3"),
 ];
 
-
 const output = document.getElementById("output");
-
+const loadingRow = document.getElementById("loading");
 
 Promise.all(promises)
     .then((results) => {
-
         let totalTime = 0;
+
+        // Clear loading row
+        loadingRow.remove();
+
+        // Populate results
         results.forEach((result) => {
             const row = document.createElement('tr');
-            const timeInSeconds = result.timeToResolve.toFixed(3); 
+            const timeInSeconds = result.timeToResolve.toFixed(3);
             totalTime += result.timeToResolve;
 
             row.innerHTML = `<td>${result.name}</td><td>${timeInSeconds}</td>`;
             output.appendChild(row);
         });
 
-   
-        const totalRow = document.createElement('tr');
-        totalRow.innerHTML = `<td><strong>Total</strong></td><td>${totalTime.toFixed(3)}</td>`;
-        output.appendChild(totalRow);
-    })
-    .catch((error) => {
-        console.error("An error occurred:", error);
-    });
+        // Add total row
+        const totalRow = docum
